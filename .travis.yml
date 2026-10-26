@@ -1,0 +1,28 @@
+language: python
+dist: jammy
+
+python:
+  - "3.12"
+
+install:
+  - pip install -r requirements-dev.txt
+
+script:
+  - black --check .
+  - flake8 .
+  - coverage run manage.py test
+  - coverage report
+
+after_success:
+  - coveralls
+
+deploy:
+  provider: elasticbeanstalk
+  access_key_id: $AWS_ACCESS_KEY_ID
+  secret_access_key: $AWS_SECRET_ACCESS_KEY
+  region: us-east-1
+  app: swe1-app
+  env: swe1-app-env
+  bucket: elasticbeanstalk-us-east-1-992868470330
+  on:
+    branch: main

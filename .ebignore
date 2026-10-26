@@ -5,3 +5,6 @@ db.sqlite3
 /static/
 .git/
 .DS_Store
+.coverage
+htmlcov/
+.travis.yml
